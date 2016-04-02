@@ -9,7 +9,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public String getListMovies(Model model) {
-        
         return ("index");
     }
 }
