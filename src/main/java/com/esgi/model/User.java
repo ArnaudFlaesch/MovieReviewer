@@ -5,12 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 /**
  * Created by hideo on 02/04/16.
  */
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -26,11 +28,14 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @Column(name="creation_Date")
-    private Date creation_Date;
-
     @Column(name="age")
     private int age;
+
+    public User(String name,String password,int age){
+        this.name = name;
+        this.password = password;
+        this.age = age;
+    }
 
     public long getId() {
         return id;
@@ -51,14 +56,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Date getCreation_Date() {
-        return creation_Date;
-    }
-
-    public void setCreation_Date(Date creation_Date) {
-        this.creation_Date = creation_Date;
     }
 
     public int getAge() {

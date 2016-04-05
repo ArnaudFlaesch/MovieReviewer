@@ -7,5 +7,6 @@ import com.esgi.model.User;
  */
 public interface IUserService {
 
-    public long RegisterUser(User user);
+    public User RegisterUser(User user);
+    public User getOne(Long id);
 }

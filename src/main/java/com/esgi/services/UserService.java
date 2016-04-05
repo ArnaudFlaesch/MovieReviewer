@@ -15,9 +15,13 @@ public class UserService implements  IUserService{
     @Autowired
     private UserRepository userRepository;
 
-    public long RegisterUser(User user){
+    public User RegisterUser(User user){
         userRepository.save(user); //methode save automatiquement définie dans userRepo
-        return user.getId();
+        return user;
+    }
+
+    public User getOne(Long id){
+        return  userRepository.getOne(id);
     }
 
 }
