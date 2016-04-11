@@ -1,7 +1,14 @@
 package com.esgi.model;
 
-import javax.persistence.*;
 import java.sql.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Created by Arnaud Flaesch on 09/04/2016.
@@ -38,7 +45,7 @@ public class MovieEntity {
     }
 
     @Basic
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     public String getImageUrl() {
         return imageUrl;
     }
@@ -58,7 +65,7 @@ public class MovieEntity {
     }
 
     @Basic
-    @Column(name = "dateRelease")
+    @Column(name = "date_release")
     public Date getDateRelease() {
         return dateRelease;
     }
@@ -68,7 +75,7 @@ public class MovieEntity {
     }
 
     @Basic
-    @Column(name = "codeAllocine")
+    @Column(name = "code_allocine")
     public int getCodeAllocine() {
         return codeAllocine;
     }

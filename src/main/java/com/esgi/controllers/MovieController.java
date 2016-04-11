@@ -2,16 +2,14 @@ package com.esgi.controllers;
 
 import com.esgi.model.MovieEntity;
 import com.esgi.model.MovieUtils;
-import com.esgi.repository.HibernateConfig;
 import com.esgi.services.MovieService;
-import com.esgi.services.MovieServiceImpl;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -29,20 +27,14 @@ import java.util.ArrayList;
 @RequestMapping("/movies")
 public class MovieController {
 
-    private MovieServiceImpl movieService;
-
     private String apiAllocineUrl = "http://api.allocine.fr/rest/v3/search?count=500&filter=movie&format=json&page=1&partner=YW5kcm9pZC12Mg&profile=medium&q=";
 
     @Autowired
-    public MovieController(MovieServiceImpl movieService) {
-        this.movieService = movieService;
-    }
+    private MovieService movieService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getMovies(Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        System.out.println(movieService.getDetailMovie(1).getDateRelease());
-        //Query query = HibernateConfig.getSession().createQuery("from MovieEntity");
         return("index");
     }
 
@@ -81,7 +73,7 @@ public class MovieController {
             if (movieJson.get("poster") != null) {
                 movie.setImageUrl(((JsonObject)movieJson.get("poster")).getString("href"));
             }
-            //movie.setDateRelease(new Date(((JsonObject)movieJson.get("release")).getString("releaseDate")));
+            //movie.setDate_release(new Date(((JsonObject)movieJson.get("release")).getString("releaseDate")));
             movie.setCodeAllocine(movieJson.getJsonNumber("code").intValue());
             listMovies.add(movie);
         }

@@ -1,9 +1,11 @@
 package com.esgi.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by Arnaud Flaesch on 09/04/2016.
@@ -15,6 +17,7 @@ public class GenreEntity {
     private String label;
 
     @Id
+    @GeneratedValue
     @Column(name = "idgenre")
     public int getIdgenre() {
         return idgenre;
