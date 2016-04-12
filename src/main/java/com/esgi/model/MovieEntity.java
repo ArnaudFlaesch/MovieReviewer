@@ -22,6 +22,7 @@ public class MovieEntity {
     private String description;
     private Date dateRelease;
     private int codeAllocine;
+    private float noteAllocine;
 
     @Id
     @GeneratedValue
@@ -82,6 +83,14 @@ public class MovieEntity {
 
     public void setCodeAllocine(int codeAllocine) {
         this.codeAllocine = codeAllocine;
+    }
+
+    public float getNoteAllocine() {
+        return noteAllocine;
+    }
+
+    public void setNoteAllocine(float noteAllocine) {
+        this.noteAllocine = noteAllocine;
     }
 
     private GenreEntity genre;

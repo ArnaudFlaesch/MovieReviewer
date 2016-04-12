@@ -2,31 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="fr">
     <meta charset="UTF-8" />
-    <title>Accueil</title>
-    <link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Films</title>
+    <!--<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />!-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <!--<script src="/webjars/jquery/2.2.3/jquery.min.js"></script>!-->
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">MovieReviewer</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Top 10</a></li>
-                    <li><a href="/movies">Films récents</a></li>
-                    <li><a href="/users">Liste des utilisateurs</a></li>
-                </ul>
-                <form action="#" th:action="@{/movies}" th:object="${movieUtils}" method="post" class="navbar-form" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" th:field="*{research}" placeholder="Titre du film" />
-                    </div>
-                    <button type="submit" class="btn btn-default">Recherche</button>
+    <div id="header">
+        <div id="cssmenu">
+            <div id="menu-button">Menu</div>
+            <ul>
+                <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
+                <li><a href="/movies" data-title="Films">Films</a></li>
+                <li><a href="#" data-title="Utilisateur">Utilisateur</a></li>
+
+                <form action="#" th:action="@{/movies}" th:object="${movieUtils}" method="post">
+                    <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
+                    <button class="btn_search">Rechercher</button>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
-                </ul>
-            </div>
+            </ul>
         </div>
-    </nav>
+    </div>
+
+    <div id="middle">
+        <div class="movie" th:each="movie : ${listMovies}">
+            <span class="title_movie" th:text="${movie.title}"></span> <img th:src="${movie.imageUrl}"/>
+            <br /><br />
+            <span>de </span><span class="realisator"></span>
+            <br /><br />
+            <span>avec </span><span class="actors"></span>
+            <br /><br />
+            <span>Date de sortie :</span><span class="date_sortie"></span>
+            <br /><br />
+            <span>Note :</span><span class="date_sortie" th:text="${movie.noteAllocine}"></span>
+        </div>
+    </div>
 </body>
 </html>

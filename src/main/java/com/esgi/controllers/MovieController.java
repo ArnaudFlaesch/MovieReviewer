@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -32,10 +33,14 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getMovies(Model model) {
+    @RequestMapping(method= RequestMethod.GET)
+    public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        return("index");
+        if (movie.getCodeAllocine() != 0) {
+            System.out.println(movie.getTitle());
+        }
+
+        return("movies");
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -75,6 +80,9 @@ public class MovieController {
             }
             //movie.setDate_release(new Date(((JsonObject)movieJson.get("release")).getString("releaseDate")));
             movie.setCodeAllocine(movieJson.getJsonNumber("code").intValue());
+            if (movieJson.get("statistics") != null) {
+                movie.setNoteAllocine(((JsonObject)movieJson.get("statistics")).getJsonNumber("userRating").bigDecimalValue().setScale(2, BigDecimal.ROUND_FLOOR).floatValue());
+            }
             listMovies.add(movie);
         }
         return (listMovies);

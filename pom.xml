@@ -67,12 +67,6 @@
 			<artifactId>javax.json</artifactId>
 			<version>1.0.4</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>3.2.0</version>
-		</dependency>
 	</dependencies>
 	
 	<build>
