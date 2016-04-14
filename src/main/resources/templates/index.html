@@ -12,11 +12,8 @@
             <div id="menu-button">Menu</div>
             <ul>
                 <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
-                <li><a href="/movies" data-title="Films">Films</a></li>
-                <li><a href="#" data-title="Utilisateur">Utilisateur</a></li>
-
-                <form action="#" th:action="@{/movies}" th:object="${movieUtils}" method="post">
-                    <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
+                <form action="#" th:action="@{/movies/search}" th:object="${movieUtils}" method="post">
+                    <input type="text" class="search_input" th:field="*{searchContent}" placeholder="Titre du film" />
                     <button class="btn_search">Rechercher</button>
                 </form>
             </ul>

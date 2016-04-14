@@ -22,13 +22,23 @@ public class MovieService {
     }
 
     @Transactional
+    public void addMovie(MovieEntity movie) {
+        movieRepository.save(movie);
+    }
+
+    @Transactional
     public MovieEntity getDetailMovie(long id) {
-        return (movieRepository.findOne(id));
+        return (movieRepository.getOne(id));
     }
 
     @Transactional
     public List<MovieEntity> getLastMovies() {
         return(movieRepository.findAll());
+    }
+
+    @Transactional
+    public List<MovieEntity> searchMovies(String titleSearch) {
+        return(movieRepository.findMovies(titleSearch));
     }
 
 }
