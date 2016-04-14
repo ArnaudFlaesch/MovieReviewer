@@ -1,14 +1,16 @@
 package com.esgi.model;
 
 import java.sql.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 /**
  * Created by Arnaud Flaesch on 09/04/2016.
@@ -21,8 +23,8 @@ public class MovieEntity {
     private String imageUrl;
     private String description;
     private Date dateRelease;
-    private int codeAllocine;
-    private float noteAllocine;
+    private String genre;
+    private float note;
 
     @Id
     @GeneratedValue
@@ -76,32 +78,34 @@ public class MovieEntity {
     }
 
     @Basic
-    @Column(name = "code_allocine")
-    public int getCodeAllocine() {
-        return codeAllocine;
-    }
-
-    public void setCodeAllocine(int codeAllocine) {
-        this.codeAllocine = codeAllocine;
-    }
-
-    public float getNoteAllocine() {
-        return noteAllocine;
-    }
-
-    public void setNoteAllocine(float noteAllocine) {
-        this.noteAllocine = noteAllocine;
-    }
-
-    private GenreEntity genre;
-
-    @ManyToOne
-    @JoinColumn(name="idgenre")
-    public GenreEntity getGenre() {
+    @Column(name = "genre")
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(GenreEntity genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Basic
+    @Column(name = "note")
+    public float getNote() {
+        return note;
+    }
+
+    public void setNote(float note) {
+        this.note = note;
+    }
+
+    private List<ReviewEntity> reviews;
+
+    @OneToMany
+    @JoinColumn(name = "idmovie")
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }

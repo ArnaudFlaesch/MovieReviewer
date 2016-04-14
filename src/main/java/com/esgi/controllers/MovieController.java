@@ -1,7 +1,7 @@
 package com.esgi.controllers;
 
 import com.esgi.model.MovieEntity;
-import com.esgi.model.MovieUtils;
+import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,20 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/movies")
@@ -33,23 +20,73 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    /**
+     * Affiche le détail d'un film
+     * @param idMovie
+     * @param model
+     * @return
+     */
     @RequestMapping(method= RequestMethod.GET)
-    public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
+    public String displayMovie(@RequestParam Long idMovie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
+<<<<<<< HEAD
 
         model.addAttribute("movie", movie);
 
         return("index");
+=======
+        model.addAttribute("movie", movieService.getDetailMovie(idMovie));
+        return("movies");
+>>>>>>> 87770a047097c7df13947c807cf36538c9df29b4
     }
 
+    /**
+     * Affiche la page pour ajouter un film
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/add", method = RequestMethod.GET)
+    public String addToMovieList(Model model) {
+        model.addAttribute("movie", new MovieEntity());
+        return ("addMovie");
+    }
+
+    /**
+     * Ajoute un film à la base de données
+     * @param movie
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public String searchMovies(@ModelAttribute MovieUtils movieUtils, Model model) {
-        if (!movieUtils.getResearch().equals("")) {
+    public String addMovie(@ModelAttribute MovieEntity movie, Model model) {
+        model.addAttribute("movieUtils", new MovieUtils());
+        movieService.addMovie(movie);
+        return("index");
+    }
+
+    /**
+     * Recherche les
+     * @param movieUtils
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchMoviesFromBDD(@ModelAttribute MovieUtils movieUtils, Model model) {
+        if (!movieUtils.getSearchContent().equals("")) {
+            model.addAttribute("listMovies", movieService.searchMovies(movieUtils.getSearchContent()));
+        }
+        return ("movies");
+    }
+
+    /*
+    @RequestMapping(value = "/search/API", method = RequestMethod.POST)
+    public String searchMoviesFromApi(@ModelAttribute MovieUtils movieUtils, Model model) {
+        if (!movieUtils.getSearchContent().equals("")) {
             try {
-                InputStream is = new URL(apiAllocineUrl+movieUtils.getResearch()).openStream();
+                InputStream is = new URL(apiAllocineUrl+movieUtils.getSearchContent()).openStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                 JsonObject body = Json.createReader(new StringReader(parseJsonFromReader(rd))).readObject();
-                ArrayList<MovieEntity> listMovies = parseMovieListFromAPI(body.getJsonObject("feed").getJsonArray("movie"));
+                ArrayList<MovieEntity> listMovies = parseJsonMovieList(body.getJsonObject("feed").getJsonArray("movie"));
                 model.addAttribute("listMovies", listMovies);
             }
             catch (IOException error) {
@@ -68,7 +105,8 @@ public class MovieController {
         return sb.toString();
     }
 
-    private ArrayList<MovieEntity> parseMovieListFromAPI(JsonArray listMovieFromApi) {
+
+    private ArrayList<MovieEntity> parseJsonMovieList(JsonArray listMovieFromApi) {
         ArrayList<MovieEntity> listMovies = new ArrayList();
         for (int i = 0; i<listMovieFromApi.size(); i++) {
             JsonObject movieJson = listMovieFromApi.getJsonObject(i);
@@ -85,5 +123,5 @@ public class MovieController {
             listMovies.add(movie);
         }
         return (listMovies);
-    }
+    }*/
 }

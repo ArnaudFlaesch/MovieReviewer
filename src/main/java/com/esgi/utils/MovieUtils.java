@@ -1,4 +1,4 @@
-package com.esgi.model;
+package com.esgi.utils;
 
 /**
  * Created by Arnaud on 10/04/2016.
