@@ -24,7 +24,6 @@ public class ReviewEntity implements Serializable {
         this.iduser = iduser;
     }
 
-
     @Id
     @Column(name = "idmovie")
     public int getIdmovie() {
