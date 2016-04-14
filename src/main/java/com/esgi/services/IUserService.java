@@ -9,4 +9,10 @@ public interface IUserService {
 
     public User RegisterUser(User user);
     public User getOne(Long id);
+
+    void removeById(long id);
+
+    boolean authenticateUser(String pseudo, String password);
+
+    User updateUser(User user);
 }
