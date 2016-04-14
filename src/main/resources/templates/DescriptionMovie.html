@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body>
+<div id="header">
+	<div id="cssmenu"><div id="menu-button">Menu</div>
+	  <ul>
+	     <li class="active"><a href="#" target="_blank" data-title="Accueil">Accueil </a></li>
+	     <li><a href="#" data-title="Utilisateur">Utilisateur</a></li>
+       <form action="#" th:action="@{/seedstartermng}" th:object="${seedStarter}" method="post">
+        <input class="search_input" type="text" th:field="*{datePlanted}" /> <button class="btn_search">Rechercher</button>
+       </form>
+	  </ul>
+	</div>	
+</div>
+
+
+<div id="middle">
+	<div class="movie">
+    <span class="title_movie">Test Test Test TestTest</span> <img src="img/test.jpg"/>
+      <br /><br />
+    <span class="description_movie">Description</span>
+      <br /><br />
+    <span>de </span><span class="realisator">Réalisateur</span>
+      <br /><br />
+    <span>avec </span><span class="actors">acteurs</span>
+      <br /><br />
+    <span>Sortie le </span><span class="date_sortie">14/02/2013</span>
+      <br /><br />
+    <span>Note : </span><span class="note_movie">4.5 / 5</span>
+
+      <br /><br />
+    <span>Genre : </span><span class="genre_movie">Comédie</span>
+
+      <br /><br />
+    <span class="add_actors">Ajouter un ou plusieurs acteurs : </span> <input type="text"/>
+      <br /><br />
+      <input type="submit">Ajouter</input>
+
+    
+    <div class="commentaire_movie">
+      <span>Liste commentaire : </span>
+    </div>
+     
+  </div>
+</div>
+
+
+</body>
+</html>

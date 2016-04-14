@@ -36,11 +36,10 @@ public class MovieController {
     @RequestMapping(method= RequestMethod.GET)
     public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        if (movie.getCodeAllocine() != 0) {
-            System.out.println(movie.getTitle());
-        }
 
-        return("movies");
+        model.addAttribute("movie", movie);
+
+        return("index");
     }
 
     @RequestMapping(method = RequestMethod.POST)
