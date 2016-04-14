@@ -7,7 +7,8 @@ import com.esgi.model.User;
  */
 public interface IUserService {
 
-    public User RegisterUser(User user);
+    public String RegisterUser(User user);
+
     public User getOne(Long id);
 
     void removeById(long id);

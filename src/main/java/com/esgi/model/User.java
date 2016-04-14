@@ -4,10 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * Created by hideo on 02/04/16.
  */
@@ -22,22 +25,64 @@ public class User {
     @Id
     private long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    //@Column(pseudo="pseudo")
-    //private String pseudo;
+    @Column(name = "firstName")
+    private String firstName;
 
-    @Column(name="password")
+    @Column(name = "pseudo", unique = true)
+    private String pseudo;
+
+    @Column(name = "password")
     private String password;
 
-    @Column(name="age")
-    private int age;
+    @Column(name = "dateInscription")
+    private Date dateInscription;
 
-    public User(String name,String password,int age){
+    @Column(name = "token")
+    private String token;
+
+
+    public User(String name, String firstName, String pseudo, String password) {
         this.name = name;
+        this.firstName = firstName;
+        this.pseudo = pseudo;
         this.password = password;
-        this.age = age;
+        this.dateInscription = new Date();
+        this.setToken();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken() {
+        this.token = UUID.randomUUID().toString();
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
+    public Date getDateInscription() {
+        return dateInscription;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
     }
 
     public long getId() {
@@ -61,11 +106,8 @@ public class User {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
+    public Date getAge() {
+        return this.dateInscription;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
 }
