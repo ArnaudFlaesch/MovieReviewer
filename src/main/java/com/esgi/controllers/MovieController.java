@@ -29,15 +29,10 @@ public class MovieController {
     @RequestMapping(method= RequestMethod.GET)
     public String displayMovie(@RequestParam Long idMovie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-<<<<<<< HEAD
-
+        MovieEntity movie = new MovieEntity();
         model.addAttribute("movie", movie);
-
-        return("index");
-=======
         model.addAttribute("movie", movieService.getDetailMovie(idMovie));
         return("movies");
->>>>>>> 87770a047097c7df13947c807cf36538c9df29b4
     }
 
     /**
@@ -72,8 +67,8 @@ public class MovieController {
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchMoviesFromBDD(@ModelAttribute MovieUtils movieUtils, Model model) {
-        if (!movieUtils.getSearchContent().equals("")) {
-            model.addAttribute("listMovies", movieService.searchMovies(movieUtils.getSearchContent()));
+        if (!movieUtils.getResearch().equals("")) {
+            model.addAttribute("listMovies", movieService.searchMovies(movieUtils.getResearch()));
         }
         return ("movies");
     }

@@ -22,17 +22,10 @@ public class IndexController {
     @RequestMapping("/")
     public String getListMovies(Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-<<<<<<< HEAD
-
         ArrayList<MovieEntity> listMovies = new ArrayList();
-
         MovieEntity movie = new MovieEntity();
         listMovies.add(movie);
-
-        model.addAttribute(listMovies);
-=======
         model.addAttribute("lastMovies", movieService.getLastMovies());
->>>>>>> 87770a047097c7df13947c807cf36538c9df29b4
         return ("index");
     }
 }
