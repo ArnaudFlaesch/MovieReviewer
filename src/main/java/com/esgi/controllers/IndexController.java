@@ -1,17 +1,12 @@
 package com.esgi.controllers;
 
+import com.esgi.services.ReviewService;
 import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.esgi.model.MovieEntity;
-
-import javax.json.JsonObject;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 public class IndexController {
@@ -19,12 +14,12 @@ public class IndexController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @RequestMapping("/")
     public String getListMovies(Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        ArrayList<MovieEntity> listMovies = new ArrayList();
-        MovieEntity movie = new MovieEntity();
-        listMovies.add(movie);
         model.addAttribute("lastMovies", movieService.getLastMovies());
         return ("index");
     }

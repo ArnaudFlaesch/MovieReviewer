@@ -1,5 +1,6 @@
 package com.esgi.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -24,7 +25,7 @@ public class MovieEntity {
     private String description;
     private Date dateRelease;
     private String genre;
-    private float note;
+    private BigDecimal note;
 
     @Id
     @GeneratedValue
@@ -87,25 +88,11 @@ public class MovieEntity {
         this.genre = genre;
     }
 
-    @Basic
-    @Column(name = "note")
-    public float getNote() {
+    public BigDecimal getNote() {
         return note;
     }
 
-    public void setNote(float note) {
+    public void setNote(BigDecimal note) {
         this.note = note;
-    }
-
-    private List<ReviewEntity> reviews;
-
-    @OneToMany
-    @JoinColumn(name = "idmovie")
-    public List<ReviewEntity> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<ReviewEntity> reviews) {
-        this.reviews = reviews;
     }
 }

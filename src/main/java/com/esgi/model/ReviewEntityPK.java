@@ -1,17 +1,15 @@
 package com.esgi.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
- * Created by Arnaud Flaesch on 13/04/2016.
+ * Created by Arnaud Flaesch on 15/04/2016.
  */
-@Entity
-@IdClass(ReviewEntityPK.class)
-@Table(name = "reviews", schema = "moviereviewer")
-public class ReviewEntity {
+public class ReviewEntityPK implements Serializable {
 
     private int idmovie;
-    private float rating;
     private int iduser;
 
     @Id
@@ -32,15 +30,5 @@ public class ReviewEntity {
 
     public void setIdmovie(int idmovie) {
         this.idmovie = idmovie;
-    }
-
-    @Basic
-    @Column(name = "rating")
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
     }
 }

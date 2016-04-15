@@ -1,6 +1,7 @@
 package com.esgi.controllers;
 
 import com.esgi.model.MovieEntity;
+import com.esgi.services.ReviewService;
 import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     /**
      * Affiche le détail d'un film
      * @param idMovie
@@ -29,9 +33,9 @@ public class MovieController {
     @RequestMapping(method= RequestMethod.GET)
     public String displayMovie(@RequestParam Long idMovie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        MovieEntity movie = new MovieEntity();
+        MovieEntity movie = movieService.getDetailMovie(idMovie);
+        movie.setNote(reviewService.getRating(movie.getIdmovie()));
         model.addAttribute("movie", movie);
-        model.addAttribute("movie", movieService.getDetailMovie(idMovie));
         return("movies");
     }
 
