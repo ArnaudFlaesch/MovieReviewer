@@ -51,8 +51,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
-    public boolean authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
-        return _userService.authenticateUser(pseudo, password);
+    public String authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
+        User authUser =  _userService.authenticateUser(pseudo, password);
+        JSONObject json = new JSONObject();
+        json.put("name",authUser.getName());
+        json.put("firstName",authUser.getFirstName());
+        json.put("pseudo",authUser.getPseudo());
+        json.put("dateInscription",authUser.getDateInscription());
+        json.put("token",authUser.getToken());
+        return json.toString();
     }
 
     @RequestMapping(value = "/updateInfoUser", method = RequestMethod.POST)

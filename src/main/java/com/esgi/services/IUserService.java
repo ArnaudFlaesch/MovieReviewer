@@ -1,6 +1,7 @@
 package com.esgi.services;
 
 import com.esgi.model.User;
+import org.json.JSONObject;
 
 /**
  * Created by hideo on 02/04/16.
@@ -13,7 +14,7 @@ public interface IUserService {
 
     void removeById(long id);
 
-    boolean authenticateUser(String pseudo, String password);
+    User authenticateUser(String pseudo, String password);
 
     User updateUser(User user);
 }

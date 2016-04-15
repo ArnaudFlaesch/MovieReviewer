@@ -106,8 +106,6 @@ public class User {
         this.password = password;
     }
 
-    public Date getAge() {
-        return this.dateInscription;
-    }
+
 
 }
