@@ -8,17 +8,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "commentaires", schema = "moviereviewer")
 public class CommentEntity {
-    private int idCommentaire;
+    private Long idCommentaire;
     private String comment;
 
     @Id
     @GeneratedValue
     @Column(name = "idcommentaire")
-    public int getIdCommentaire() {
+    public Long getIdCommentaire() {
         return idCommentaire;
     }
 
-    public void setIdCommentaire(int idCommentaire) {
+    public void setIdCommentaire(Long idCommentaire) {
         this.idCommentaire = idCommentaire;
     }
 

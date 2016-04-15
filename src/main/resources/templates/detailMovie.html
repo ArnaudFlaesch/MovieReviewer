@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="fr">
+    <meta charset="UTF-8" />
+    <title th:text="${movie.title}"></title>
+    <!--<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />!-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div id="header">
+    <div id="cssmenu">
+        <div id="menu-button">Menu</div>
+        <ul>
+            <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
+            <form action="#" th:action="@{/movies/search}" th:object="${movieUtils}" method="post">
+                <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
+                <button class="btn_search">Rechercher</button>
+            </form>
+        </ul>
+    </div>
+</div>
+
+
+<div id="middle">
+	<div class="movie">
+        <span class="title_movie" th:text="${movie.title}"></span> <img th:src="${movie.imageUrl}"/>
+        <br /><br />
+        <span class="description_movie" th:text="${movie.description}"></span>
+        <br /><br />
+        <span>de </span><span class="realisator">Réalisateur</span>
+        <br /><br />
+        <span>avec </span><span class="actors">acteurs</span>
+        <br /><br />
+        <span>Sortie le </span><span class="date_sortie" th:text="${movie.dateRelease}"></span>
+        <br /><br />
+        <span>Note : </span><span class="note_movie" th:text="${movie.note}"> / 5</span>
+
+        <br /><br />
+        <span>Genre : </span><span class="genre_movie" th:text="${movie.genre}"></span>
+
+        <br /><br />
+        <span class="add_actors">Ajouter un ou plusieurs acteurs : </span> <input type="text"/>
+        <br /><br />
+        <input type="submit">Ajouter</input>
+
+
+        <div class="commentaire_movie">
+            <span>Commentaires : </span>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

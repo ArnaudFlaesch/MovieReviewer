@@ -10,7 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
@@ -26,17 +27,17 @@ public class MovieController {
 
     /**
      * Affiche le détail d'un film
-     * @param idMovie
+     * @param movie
      * @param model
      * @return
      */
-    @RequestMapping(method= RequestMethod.GET)
-    public String displayMovie(@RequestParam Long idMovie, Model model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        MovieEntity movie = movieService.getDetailMovie(idMovie);
+        movie = movieService.getDetailMovie(movie.getIdmovie());
         movie.setNote(reviewService.getRating(movie.getIdmovie()));
         model.addAttribute("movie", movie);
-        return("movies");
+        return("detailMovie");
     }
 
     /**
@@ -45,7 +46,7 @@ public class MovieController {
      * @return
      */
     @RequestMapping(value="/add", method = RequestMethod.GET)
-    public String addToMovieList(Model model) {
+    public String addMovieForm(Model model) {
         model.addAttribute("movie", new MovieEntity());
         return ("addMovie");
     }
@@ -72,7 +73,12 @@ public class MovieController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchMoviesFromBDD(@ModelAttribute MovieUtils movieUtils, Model model) {
         if (!movieUtils.getResearch().equals("")) {
-            model.addAttribute("listMovies", movieService.searchMovies(movieUtils.getResearch()));
+            List<MovieEntity> listMovies = movieService.searchMovies(movieUtils.getResearch());
+            for (MovieEntity movie : listMovies) {
+                movie.setNote(reviewService.getRating(movie.getIdmovie()));
+            }
+            model.addAttribute("listMovies", listMovies);
+            model.addAttribute("movie", new MovieEntity());
         }
         return ("movies");
     }

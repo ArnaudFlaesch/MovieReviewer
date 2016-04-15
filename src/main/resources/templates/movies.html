@@ -23,15 +23,19 @@
 
     <div id="middle">
         <div class="movie" th:each="movie : ${listMovies}">
-            <span class="title_movie" th:text="${movie.title}"></span> <img th:src="${movie.imageUrl}"/>
-            <br /><br />
-            <span>de </span><span class="realisator"></span>
-            <br /><br />
-            <span>avec </span><span class="actors"></span>
-            <br /><br />
-            <span>Date de sortie :</span><span class="date_sortie"></span>
-            <br /><br />
-            <!--<span>Note :</span><span class="date_sortie" th:text="${movie.note}"></span> !-->
+            <form action="#" th:action="@{/movies}" method="GET" th:object="${movie}">
+                <input type="hidden" th:attr="name='idmovie'" th:value="${movie.idmovie}" />
+                <span class="title_movie" th:text="${movie.title}"></span> <img th:src="${movie.imageUrl}"/>
+                <br /><br />
+                <span>de </span><span class="realisator"></span>
+                <br /><br />
+                <span>avec </span><span class="actors"></span>
+                <br /><br />
+                <span>Date de sortie :</span><span class="date_sortie"></span>
+                <br /><br />
+                <span>Note : </span><span class="date_sortie" th:text="${movie.note} ? ${movie.note} : 'Aucune note pour le moment'"></span>
+                <input type="submit" value="Voir la fiche du film" />
+            </form>
         </div>
     </div>
 </body>

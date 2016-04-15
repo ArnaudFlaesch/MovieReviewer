@@ -10,27 +10,27 @@ import javax.persistence.*;
 @Table(name = "reviews", schema = "moviereviewer")
 public class ReviewEntity {
 
-    private int idmovie;
+    private Long idmovie;
     private float rating;
-    private int iduser;
+    private Long iduser;
 
     @Id
     @Column(name = "iduser")
-    public int getIduser() {
+    public Long getIduser() {
         return iduser;
     }
 
-    public void setIduser(int iduser) {
+    public void setIduser(Long iduser) {
         this.iduser = iduser;
     }
 
     @Id
     @Column(name = "idmovie")
-    public int getIdmovie() {
+    public Long getIdmovie() {
         return idmovie;
     }
 
-    public void setIdmovie(int idmovie) {
+    public void setIdmovie(Long idmovie) {
         this.idmovie = idmovie;
     }
 

@@ -21,7 +21,7 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public BigDecimal getRating(int idmovie) {
+    public BigDecimal getRating(Long idmovie) {
         return(reviewRepository.getRating(idmovie));
     }
 

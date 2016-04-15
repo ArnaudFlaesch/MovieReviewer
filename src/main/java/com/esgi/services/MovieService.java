@@ -27,7 +27,7 @@ public class MovieService {
     }
 
     @Transactional
-    public MovieEntity getDetailMovie(long id) {
+    public MovieEntity getDetailMovie(Long id) {
         return (movieRepository.getOne(id));
     }
 

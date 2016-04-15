@@ -3,14 +3,7 @@ package com.esgi.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -19,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "movie", schema = "moviereviewer")
 public class MovieEntity {
-    private int idmovie;
+    private Long idmovie;
     private String title;
     private String imageUrl;
     private String description;
@@ -30,11 +23,11 @@ public class MovieEntity {
     @Id
     @GeneratedValue
     @Column(name = "idmovie")
-    public int getIdmovie() {
+    public Long getIdmovie() {
         return idmovie;
     }
 
-    public void setIdmovie(int idmovie) {
+    public void setIdmovie(Long idmovie) {
         this.idmovie = idmovie;
     }
 
@@ -88,6 +81,7 @@ public class MovieEntity {
         this.genre = genre;
     }
 
+    @Transient
     public BigDecimal getNote() {
         return note;
     }

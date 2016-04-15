@@ -9,26 +9,26 @@ import java.io.Serializable;
  */
 public class ReviewEntityPK implements Serializable {
 
-    private int idmovie;
-    private int iduser;
+    private Long idmovie;
+    private Long iduser;
 
     @Id
     @Column(name = "iduser")
-    public int getIduser() {
+    public Long getIduser() {
         return iduser;
     }
 
-    public void setIduser(int iduser) {
+    public void setIduser(Long iduser) {
         this.iduser = iduser;
     }
 
     @Id
     @Column(name = "idmovie")
-    public int getIdmovie() {
+    public Long getIdmovie() {
         return idmovie;
     }
 
-    public void setIdmovie(int idmovie) {
+    public void setIdmovie(Long idmovie) {
         this.idmovie = idmovie;
     }
 }
