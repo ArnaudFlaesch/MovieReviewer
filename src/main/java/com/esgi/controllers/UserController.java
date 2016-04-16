@@ -27,6 +27,11 @@ public class UserController {
         _userService = userService;
     }
 
+    @RequestMapping(value ="/")
+    public String UserUtils(){
+        return("userUtils");
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     //@ResponseStatus(va)
     public String create(@RequestParam("name") String name,
@@ -36,7 +41,13 @@ public class UserController {
 
        // String i =_userService.RegisterUser(new User(name, firstname, pseudo, password));
         JSONObject json = new JSONObject();
-        json.put("token",_userService.RegisterUser(new User(name, firstname, pseudo, password)));
+        User createdUser = _userService.RegisterUser(new User(name, firstname, pseudo, password));
+        json.put("id",createdUser.getId());
+        json.put("name",createdUser.getName());
+        json.put("firstName",createdUser.getFirstName());
+        json.put("pseudo",createdUser.getPseudo());
+        json.put("dateInscription",createdUser.getDateInscription());
+        json.put("token",createdUser.getToken());
         return json.toString();
     }
 
@@ -54,10 +65,6 @@ public class UserController {
     public String authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
         User authUser =  _userService.authenticateUser(pseudo, password);
         JSONObject json = new JSONObject();
-        json.put("name",authUser.getName());
-        json.put("firstName",authUser.getFirstName());
-        json.put("pseudo",authUser.getPseudo());
-        json.put("dateInscription",authUser.getDateInscription());
         json.put("token",authUser.getToken());
         return json.toString();
     }

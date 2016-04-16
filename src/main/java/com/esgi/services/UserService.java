@@ -18,9 +18,9 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String RegisterUser(User user) {
+    public User RegisterUser(User user) {
         userRepository.save(user); //methode save automatiquement définie dans userRepo
-        return user.getToken();
+        return user;
     }
 
     public User getOne(Long id) {
