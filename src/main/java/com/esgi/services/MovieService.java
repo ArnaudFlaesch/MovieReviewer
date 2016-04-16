@@ -33,7 +33,7 @@ public class MovieService {
 
     @Transactional
     public List<MovieEntity> getLastMovies() {
-        return(movieRepository.findAll());
+        return(movieRepository.getLastMovies());
     }
 
     @Transactional

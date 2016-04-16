@@ -6,20 +6,21 @@ import javax.persistence.*;
  * Created by Arnaud on 14/04/2016.
  */
 @Entity
-@Table(name = "commentaires", schema = "moviereviewer")
+@Table(name = "comment", schema = "moviereviewer")
 public class CommentEntity {
-    private Long idCommentaire;
+    private Long idComment;
     private String comment;
+    private Long idmovie;
 
     @Id
     @GeneratedValue
-    @Column(name = "idcommentaire")
-    public Long getIdCommentaire() {
-        return idCommentaire;
+    @Column(name = "idcomment")
+    public Long getIdComment() {
+        return idComment;
     }
 
-    public void setIdCommentaire(Long idCommentaire) {
-        this.idCommentaire = idCommentaire;
+    public void setIdComment(Long idComment) {
+        this.idComment = idComment;
     }
 
     @Basic
@@ -30,6 +31,16 @@ public class CommentEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Basic
+    @Column(name = "idmovie")
+    public Long getIdmovie() {
+        return idmovie;
+    }
+
+    public void setIdmovie(Long idmovie) {
+        this.idmovie = idmovie;
     }
 
     private UserEntity user;

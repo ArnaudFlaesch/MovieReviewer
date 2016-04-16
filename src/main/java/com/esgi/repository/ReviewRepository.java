@@ -14,6 +14,4 @@ import java.math.BigDecimal;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
-    @Query("SELECT SUM(reviews.rating)/COUNT(reviews) FROM ReviewEntity reviews WHERE reviews.idmovie = :idmovie")
-    BigDecimal getRating(@Param("idmovie") Long idmovie);
 }

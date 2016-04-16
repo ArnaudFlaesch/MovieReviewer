@@ -17,4 +17,7 @@ public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
 
     @Query("FROM MovieEntity WHERE title LIKE %:title%")
     List<MovieEntity> findMovies(@Param("title") String title);
+
+    @Query("FROM MovieEntity WHERE date_release <= date(now()) ORDER BY date_release DESC")
+    List<MovieEntity> getLastMovies();
 }

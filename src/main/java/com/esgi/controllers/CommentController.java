@@ -2,6 +2,7 @@ package com.esgi.controllers;
 
 import com.esgi.model.CommentEntity;
 import com.esgi.services.CommentService;
+import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,23 +18,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CommentController {
 
     @Autowired
+    private MovieService movieService;
+
+    @Autowired
     private CommentService commentService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCommentaire(@ModelAttribute CommentEntity commentaire, Model model) {
-        commentService.addComment(commentaire);
+    @RequestMapping(method = RequestMethod.POST)
+    public String addComment(@ModelAttribute CommentEntity comment, Model model) {
+        commentService.addComment(comment);
+        model.addAttribute("movie", movieService.getDetailMovie(comment.getIdmovie()));
         return ("detailMovie");
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateCommentaire(@ModelAttribute CommentEntity commentaire, Model model) {
-        commentService.updateComment(commentaire);
+    public String updateComment(@ModelAttribute CommentEntity comment, Model model) {
+        commentService.updateComment(comment);
         return ("detailMovie");
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String deleteCommentaire(@ModelAttribute CommentEntity commentaire, Model model) {
-        commentService.deleteComment(commentaire);
+    public String deleteComment(@ModelAttribute CommentEntity comment, Model model) {
+        commentService.deleteComment(comment);
         return ("detailMovie");
     }
 

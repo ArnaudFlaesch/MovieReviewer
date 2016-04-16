@@ -21,10 +21,6 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public BigDecimal getRating(Long idmovie) {
-        return(reviewRepository.getRating(idmovie));
-    }
-
     public void addReview(ReviewEntity reviewEntity) {
         reviewRepository.save(reviewEntity);
     }

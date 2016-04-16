@@ -1,6 +1,9 @@
 package com.esgi.controllers;
 
+import com.esgi.model.CommentEntity;
 import com.esgi.model.MovieEntity;
+import com.esgi.model.ReviewEntity;
+import com.esgi.services.CommentService;
 import com.esgi.services.ReviewService;
 import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -22,9 +26,6 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @Autowired
-    private ReviewService reviewService;
-
     /**
      * Affiche le détail d'un film
      * @param movie
@@ -35,8 +36,22 @@ public class MovieController {
     public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
         movie = movieService.getDetailMovie(movie.getIdmovie());
-        movie.setNote(reviewService.getRating(movie.getIdmovie()));
+        BigDecimal rating = new BigDecimal(0.0);
+        Long iduser = new Long(1);
+        boolean hasNotReviewed = false;
+        if (movie.getListReviews().size() > 0) {
+            for (ReviewEntity review : movie.getListReviews()) {
+                rating = rating.add(review.getRating());
+                if (review.getIduser().equals(iduser)) {
+                    hasNotReviewed = true;
+                }
+            }
+            movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));
+        }
+        model.addAttribute("hasNotReviewed", !hasNotReviewed);
         model.addAttribute("movie", movie);
+        model.addAttribute("comment", new CommentEntity());
+        model.addAttribute("review", new ReviewEntity());
         return("detailMovie");
     }
 
@@ -74,9 +89,6 @@ public class MovieController {
     public String searchMoviesFromBDD(@ModelAttribute MovieUtils movieUtils, Model model) {
         if (!movieUtils.getResearch().equals("")) {
             List<MovieEntity> listMovies = movieService.searchMovies(movieUtils.getResearch());
-            for (MovieEntity movie : listMovies) {
-                movie.setNote(reviewService.getRating(movie.getIdmovie()));
-            }
             model.addAttribute("listMovies", listMovies);
             model.addAttribute("movie", new MovieEntity());
         }

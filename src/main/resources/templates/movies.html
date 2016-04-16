@@ -21,6 +21,10 @@
         </div>
     </div>
 
+    <div id="left">
+        <a href="/movies/add">Ajouter un film</a>
+    </div>
+
     <div id="middle">
         <div class="movie" th:each="movie : ${listMovies}">
             <form action="#" th:action="@{/movies}" method="GET" th:object="${movie}">
@@ -31,7 +35,7 @@
                 <br /><br />
                 <span>avec </span><span class="actors"></span>
                 <br /><br />
-                <span>Date de sortie :</span><span class="date_sortie"></span>
+                <span>Date de sortie :</span><span class="date_sortie" th:text="${movie.dateRelease}"></span>
                 <br /><br />
                 <span>Note : </span><span class="date_sortie" th:text="${movie.note} ? ${movie.note} : 'Aucune note pour le moment'"></span>
                 <input type="submit" value="Voir la fiche du film" />

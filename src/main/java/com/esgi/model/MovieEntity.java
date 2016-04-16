@@ -89,4 +89,28 @@ public class MovieEntity {
     public void setNote(BigDecimal note) {
         this.note = note;
     }
+
+    private List<ReviewEntity> listReviews;
+
+    @OneToMany
+    @JoinColumn(name = "idmovie")
+    public List<ReviewEntity> getListReviews() {
+        return listReviews;
+    }
+
+    public void setListReviews(List<ReviewEntity> listReviews) {
+        this.listReviews = listReviews;
+    }
+
+    private List<CommentEntity> listComments;
+
+    @OneToMany
+    @JoinColumn(name = "idmovie")
+    public List<CommentEntity> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<CommentEntity> listComments) {
+        this.listComments = listComments;
+    }
 }

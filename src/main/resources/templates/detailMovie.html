@@ -33,19 +33,47 @@
         <br /><br />
         <span>Sortie le </span><span class="date_sortie" th:text="${movie.dateRelease}"></span>
         <br /><br />
-        <span>Note : </span><span class="note_movie" th:text="${movie.note}"> / 5</span>
+        <span>Note : </span><span class="date_sortie" th:text="${movie.note} ? ${movie.note} : 'Aucune note pour le moment'"></span>
 
         <br /><br />
         <span>Genre : </span><span class="genre_movie" th:text="${movie.genre}"></span>
 
         <br /><br />
-        <span class="add_actors">Ajouter un ou plusieurs acteurs : </span> <input type="text"/>
-        <br /><br />
-        <input type="submit">Ajouter</input>
 
+        <form action="#" th:if="${hasNotReviewed}" th:action="@{/movies/reviews}" th:object="${review}" method="POST">
+            Donner une note à ce film : <input type="number" step="0.1" min="0" max="5" th:field="*{rating}" />
+        </form>
+
+        <br /><br />
 
         <div class="commentaire_movie">
+
             <span>Commentaires : </span>
+            <div th:each="comment : ${movie.listComments}">
+                <div th:text="${comment.comment}"></div>
+            </div>
+
+
+            <form action="#" th:action="@{/movies/comments}" th:object="${comment}" method="POST">
+                <input type="hidden" th:attr="name='idmovie'" th:value="${movie.idmovie}" />
+                <span class="add_actors">Ajouter un commentaire : </span>
+                <br /><br />
+                <textarea type="text" th:field="*{comment}"/>
+                <br /><br />
+                <input type="submit" value="Ajouter" />
+                <br /><br />
+            </form>
+
+            <!--<form action="#" th:action="@{/movies/persons}" th:object="${person}" method="POST">
+            <span class="add_actors">Ajouter un acteur : </span>
+            <br /><br />
+            Prénom : <input type="text" th:field="*{firstName}"/>
+            <br /><br />
+            Nom : <input type="text" th:field="*{name}"/>
+            <br /><br />
+            <input type="submit">Ajouter</input>
+            <br /><br />
+        </form>!-->
         </div>
     </div>
 </div>

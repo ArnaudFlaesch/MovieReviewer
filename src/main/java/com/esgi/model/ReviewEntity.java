@@ -1,17 +1,18 @@
 package com.esgi.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by Arnaud Flaesch on 13/04/2016.
  */
 @Entity
 @IdClass(ReviewEntityPK.class)
-@Table(name = "reviews", schema = "moviereviewer")
+@Table(name = "review", schema = "moviereviewer")
 public class ReviewEntity {
 
     private Long idmovie;
-    private float rating;
+    private BigDecimal rating;
     private Long iduser;
 
     @Id
@@ -36,11 +37,11 @@ public class ReviewEntity {
 
     @Basic
     @Column(name = "rating")
-    public float getRating() {
+    public BigDecimal getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(BigDecimal rating) {
         this.rating = rating;
     }
 }
