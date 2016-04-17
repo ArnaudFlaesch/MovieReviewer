@@ -36,7 +36,7 @@ public class UserAPIController {
                          @RequestParam("pseudo") String pseudo,
                          @RequestParam("password") String password) {
 
-        // String i =_userService.RegisterUser(new User(name, firstname, pseudo, password));
+
         JSONObject json = new JSONObject();
         User createdUser = _userService.RegisterUser(new User(name, firstname, pseudo, password));
         json.put("id", createdUser.getIduser());
