@@ -1,8 +1,6 @@
 package com.esgi.controllers;
 
 import com.esgi.model.*;
-import com.esgi.services.CommentService;
-import com.esgi.services.ReviewService;
 import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;

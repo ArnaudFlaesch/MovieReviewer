@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Created by Arnaud on 15/04/2016.
- */
+
 @Controller
 @RequestMapping("/movies/comments")
 public class CommentController {

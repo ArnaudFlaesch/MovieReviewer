@@ -54,7 +54,6 @@ public class CommentEntity {
         this.iduser = iduser;
     }
 
-
     private User user;
 
     @OneToOne
@@ -66,5 +65,4 @@ public class CommentEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
 }
