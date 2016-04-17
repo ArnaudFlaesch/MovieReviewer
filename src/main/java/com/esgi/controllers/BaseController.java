@@ -1,4 +1,4 @@
-package com.esgi.controller;
+package com.esgi.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 

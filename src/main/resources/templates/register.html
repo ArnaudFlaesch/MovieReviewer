@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="fr">
+    <meta charset="UTF-8" />
+    <title>Accueil</title>
+    <!--<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />!-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <div id="header">
+        <div id="cssmenu">
+            <div id="menu-button">Menu</div>
+            <ul>
+                <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
+                <form action="#" th:action="@{/movies/search}" th:object="${movieUtils}" method="post">
+                    <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
+                    <button class="btn_search">Rechercher</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+
+    <form action="#" th:action="@{/registerUser}" th:object="${user}" method="POST">
+        Nom : <input type="text" th:field="*{name}" />
+        Prénom : <input type="text" th:field="*{firstName}" />
+        Pseudo : <input type="text" th:field="*{pseudo}" />
+        Password : <input type="password" th:field="*{password}" />
+        <input type="submit" value="Valider" />
+    </form>
+
+</body>
+</html>

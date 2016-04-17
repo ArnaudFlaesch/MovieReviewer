@@ -8,7 +8,7 @@
     <!--<script src="/webjars/jquery/2.2.3/jquery.min.js"></script>!-->
 </head>
 <body>
-    <div id="header">
+    <<div id="header">
         <div id="cssmenu">
             <div id="menu-button">Menu</div>
             <ul>
@@ -17,6 +17,17 @@
                     <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
                     <button class="btn_search">Rechercher</button>
                 </form>
+                <li class="active"><div th:if="${user.iduser != 0}">Bienvenue, <span th:text="${user.firstName}"></span> <span th:text="${user.name}"></span></div></li>
+                <li class="active">
+                    <div th:if="${user.iduser == 0}">
+                        <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+                            <input type="text" th:field="*{pseudo}" />
+                            <input type="password" th:field="*{password}" />
+                            <input type="submit" value="Se connecter" />
+                        </form>
+                        <a href="/register">Créer un compte</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,5 +1,6 @@
-package com.esgi.controller;
+package com.esgi.controllers;
 
+import com.esgi.controllers.BaseController;
 import com.esgi.model.Casting;
 import com.esgi.model.Person;
 import com.esgi.services.PersonService;
@@ -18,7 +19,6 @@ import javax.json.JsonValue;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

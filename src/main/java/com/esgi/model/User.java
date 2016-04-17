@@ -94,10 +94,13 @@ public class User {
         this.dateInscription = dateInscription;
     }
 
-    public long getIduser() {
+    public Long getIduser() {
         return iduser;
     }
 
+    public void setIduser(Long iduser) {
+        this.iduser = iduser;
+    }
 
     public String getName() {
         return name;

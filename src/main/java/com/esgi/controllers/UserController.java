@@ -56,6 +56,34 @@ public class UserController {
         return ("index");
     }
 
+    @RequestMapping("/register")
+    public String registerView(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("movieUtils", new MovieUtils());
+        return("register");
+    }
+
+    @RequestMapping("/registerUser")
+    public String register(@ModelAttribute User user, Model model) {
+        model.addAttribute("movieUtils", new MovieUtils());
+        _userService.RegisterUser(new User(user.getName(), user.getFirstName(), user.getPseudo(), user.getPassword()));
+        User authenticateUser = _userService.authenticateUser(user.getPseudo(), user.getPassword());
+        setSessionUser(authenticateUser);
+        List<MovieEntity> listMovies = movieService.getLastMovies();
+        for (MovieEntity movie : listMovies) {
+            BigDecimal rating = new BigDecimal(0.0);
+            if (movie.getListReviews().size() > 0) {
+                for (ReviewEntity review : movie.getListReviews()) {
+                    rating = rating.add(review.getRating());
+                }
+                movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));
+            }
+        }
+        model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
+        model.addAttribute("listMovies", listMovies);
+        return("index");
+    }
+
     private void setSessionUser(User user) {
         SessionUser.setIduser(user.getIduser());
         SessionUser.setName(user.getName());

@@ -32,6 +32,10 @@ public class Casting implements Serializable{
     @JoinColumn(name="idperson")
     private Person person;
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     /*public void setId(CastingPk id) {
         this.id = id;
     }
