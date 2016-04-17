@@ -1,16 +1,14 @@
 package com.esgi.controllers;
 
-        import com.esgi.model.User;
-        import com.esgi.services.IUserService;
-        import com.esgi.services.UserService;
-        import org.json.JSONObject;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.web.bind.annotation.*;
+import com.esgi.model.User;
+import com.esgi.services.UserService;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-        import java.sql.Date;
+import java.util.List;
 
-        import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
-        import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by hideo on 02/04/16.
@@ -33,7 +31,6 @@ public class UserAPIController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    //@ResponseStatus(va)
     public String create(@RequestParam("name") String name,
                          @RequestParam("firstName") String firstname,
                          @RequestParam("pseudo") String pseudo,
@@ -51,7 +48,7 @@ public class UserAPIController {
         return json.toString();
     }
 
-    @RequestMapping(value = "/getUser", method = GET)
+    @RequestMapping(value = "/getUserById", method = GET)
     public User getUser(@RequestParam("id") String id) {
         return _userService.getOne(Long.parseLong(id));
     }
@@ -61,7 +58,7 @@ public class UserAPIController {
         _userService.removeById(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/authentificateUser", method = RequestMethod.POST)
     public String authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
         User authUser =  _userService.authenticateUser(pseudo, password);
         JSONObject json = new JSONObject();
@@ -69,8 +66,18 @@ public class UserAPIController {
         return json.toString();
     }
 
-    @RequestMapping(value = "/updateInfoUser", method = RequestMethod.POST)
-    public User updateUser(@RequestParam("user") User user) {
-        return _userService.updateUser(user);
+    @RequestMapping(value = "/updatePasswordUser", method = RequestMethod.POST)
+    public User updateUser(@RequestParam("id") Long id, @RequestParam("password") String password) {
+        return _userService.updateUser(id,password);
+    }
+
+    @RequestMapping(value = "/getUserByPseudo", method = RequestMethod.GET)
+    public User getUserByPseudo(@RequestParam("pseudo") String pseudo) {
+        return _userService.getUserByPseudo(pseudo);
+    }
+
+    @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
+    public List<User> getAllUser() {
+        return _userService.getAll();
     }
 }

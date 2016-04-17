@@ -2,7 +2,6 @@ package com.esgi.services;
 
 import com.esgi.model.User;
 import com.esgi.repository.UserRepository;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +27,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public void removeById(long id) {
         userRepository.delete(id);
     }
@@ -44,8 +48,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return userRepository.saveAndFlush(user);
+    public User updateUser(Long id, String password) {
+        User updateUser = userRepository.getOne(id);
+        updateUser.setPassword(password);
+        return userRepository.saveAndFlush(updateUser);
     }
+
+    @Override
+    public User getUserByPseudo(String pseudo) {
+        return userRepository.findByPseudo(pseudo);
+    }
+
 
 }

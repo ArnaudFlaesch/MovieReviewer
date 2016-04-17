@@ -6,16 +6,15 @@ import com.esgi.model.User;
 import com.esgi.services.MovieService;
 import com.esgi.services.UserService;
 import com.esgi.utils.MovieUtils;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 
 /**
  * Created by Arnaud on 17/04/2016.
@@ -49,6 +48,6 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("listMovies", listMovies);
         model.addAttribute("movieUtils", new MovieUtils());
-        return("index");
+        return ("index");
     }
 }
