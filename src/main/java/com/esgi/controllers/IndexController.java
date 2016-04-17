@@ -2,6 +2,7 @@ package com.esgi.controllers;
 
 import com.esgi.model.MovieEntity;
 import com.esgi.model.ReviewEntity;
+import com.esgi.model.SessionUser;
 import com.esgi.model.User;
 import com.esgi.utils.MovieUtils;
 import com.esgi.services.MovieService;
@@ -34,7 +35,7 @@ public class IndexController {
                 movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));
             }
         }
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
         model.addAttribute("listMovies", listMovies);
         return ("index");
     }

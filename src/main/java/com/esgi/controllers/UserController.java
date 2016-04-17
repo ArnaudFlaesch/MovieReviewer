@@ -2,6 +2,7 @@ package com.esgi.controllers;
 
 import com.esgi.model.MovieEntity;
 import com.esgi.model.ReviewEntity;
+import com.esgi.model.SessionUser;
 import com.esgi.model.User;
 import com.esgi.services.MovieService;
 import com.esgi.services.UserService;
@@ -35,6 +36,9 @@ public class UserController {
     @RequestMapping("/login")
     public String login(@ModelAttribute User user, Model model) {
         user = _userService.authenticateUser(user.getPseudo(), user.getPassword());
+        if (user != null) {
+            setSessionUser(user);
+        }
         List<MovieEntity> listMovies = movieService.getLastMovies();
         for (MovieEntity movie : listMovies) {
             BigDecimal rating = new BigDecimal(0.0);
@@ -45,9 +49,18 @@ public class UserController {
                 movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));
             }
         }
+
         model.addAttribute("user", user);
         model.addAttribute("listMovies", listMovies);
         model.addAttribute("movieUtils", new MovieUtils());
         return ("index");
+    }
+
+    private void setSessionUser(User user) {
+        SessionUser.setIduser(user.getIduser());
+        SessionUser.setName(user.getName());
+        SessionUser.setFirstName(user.getFirstName());
+        SessionUser.setPseudo(user.getPseudo());
+        SessionUser.setToken(user.getToken());
     }
 }

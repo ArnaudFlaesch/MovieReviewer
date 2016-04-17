@@ -3,8 +3,33 @@
 <head lang="fr">
     <meta charset="UTF-8" />
     <title>Ajouter un film</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
+
+    <div id="header">
+        <div id="cssmenu">
+            <div id="menu-button">Menu</div>
+            <ul>
+                <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
+                <form action="#" th:action="@{/movies/search}" th:object="${movieUtils}" method="post">
+                    <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
+                    <button class="btn_search">Rechercher</button>
+                </form>
+                <li class="active"><div th:if="${user.iduser != 0}">Bienvenue, <span th:text="${user.firstName}"></span> <span th:text="${user.name}"></span></div></li>
+                <li class="active">
+                    <div th:if="${user.iduser == 0}">
+                        <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+                            <input type="text" th:field="*{pseudo}" />
+                            <input type="password" th:field="*{password}" />
+                            <input type="submit" value="Se connecter" />
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <form action="#" th:action="@{/movies}" th:object="${movie}" method="POST">
         Titre<input type="text" th:field="*{title}" />
         URL Image<input type="text" th:field="*{imageUrl}" />

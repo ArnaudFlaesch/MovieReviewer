@@ -21,7 +21,7 @@
                     <div th:if="${user.iduser == 0}">
                         <form action="#" th:action="@{/login}" th:object="${user}" method="post">
                             <input type="text" th:field="*{pseudo}" />
-                            <input type="text" th:field="*{password}" />
+                            <input type="password" th:field="*{password}" />
                             <input type="submit" value="Se connecter" />
                         </form>
                     </div>

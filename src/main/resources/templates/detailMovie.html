@@ -16,6 +16,16 @@
                 <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
                 <button class="btn_search">Rechercher</button>
             </form>
+            <li class="active"><div th:if="${user.iduser != 0}">Bienvenue, <span th:text="${user.firstName}"></span> <span th:text="${user.name}"></span></div></li>
+            <li class="active">
+                <div th:if="${user.iduser == 0}">
+                    <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+                        <input type="text" th:field="*{pseudo}" />
+                        <input type="password" th:field="*{password}" />
+                        <input type="submit" value="Se connecter" />
+                    </form>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
@@ -40,22 +50,28 @@
 
         <br /><br />
 
-        <form action="#" th:if="${hasNotReviewed}" th:action="@{/movies/reviews}" th:object="${review}" method="POST">
+        <form action="#" th:if="${hasReviewed and user.iduser != 0}" th:action="@{/movies/reviews}" th:object="${review}" method="POST">
+            <input type="hidden" th:attr="name='idmovie'" th:value="${movie.idmovie}" />
+            <input type="hidden" th:attr="name='iduser'" th:value="${user.iduser}" />
             Donner une note à ce film : <input type="number" step="0.1" min="0" max="5" th:field="*{rating}" />
+            <input type="submit" value="Valider" />
         </form>
 
         <br /><br />
 
         <div class="commentaire_movie">
 
-            <span>Commentaires : </span>
+            <div>Commentaires : </div>
+            <br /> <br />
             <div th:each="comment : ${movie.listComments}">
-                <div th:text="${comment.comment}"></div>
+                <span th:text="${comment.comment}"></span> par <span th:text="${comment.user.pseudo}"></span>
             </div>
+            <br /> <br />
 
 
-            <form action="#" th:action="@{/movies/comments}" th:object="${comment}" method="POST">
+            <form th:if="${user.iduser != 0}" action="#" th:action="@{/movies/comments}" th:object="${comment}" method="POST">
                 <input type="hidden" th:attr="name='idmovie'" th:value="${movie.idmovie}" />
+                <input type="hidden" th:attr="name='iduser'" th:value="${user.iduser}" />
                 <span class="add_actors">Ajouter un commentaire : </span>
                 <br /><br />
                 <textarea type="text" th:field="*{comment}"/>

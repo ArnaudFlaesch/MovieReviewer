@@ -8,19 +8,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "comment", schema = "moviereviewer")
 public class CommentEntity {
-    private Long idComment;
+    private Long idcomment;
     private String comment;
     private Long idmovie;
+    private Long iduser;
 
     @Id
     @GeneratedValue
     @Column(name = "idcomment")
-    public Long getIdComment() {
-        return idComment;
+    public Long getIdcomment() {
+        return idcomment;
     }
 
-    public void setIdComment(Long idComment) {
-        this.idComment = idComment;
+    public void setIdcomment(Long idcomment) {
+        this.idcomment = idcomment;
     }
 
     @Basic
@@ -43,10 +44,21 @@ public class CommentEntity {
         this.idmovie = idmovie;
     }
 
+    @Basic
+    @Column(name = "iduser")
+    public Long getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(Long iduser) {
+        this.iduser = iduser;
+    }
+
+
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "iduser", insertable = false, updatable = false)
     public User getUser() {
         return user;
     }
@@ -54,4 +66,5 @@ public class CommentEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

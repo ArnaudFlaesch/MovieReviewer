@@ -14,6 +14,4 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
-    @Query("FROM CommentEntity WHERE idmovie = :idmovie")
-    List<CommentEntity> getMovieComments(@Param("idmovie") int idmovie);
 }

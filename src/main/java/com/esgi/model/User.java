@@ -22,7 +22,8 @@ import java.util.UUID;
 public class User {
     @GeneratedValue
     @Id
-    private long iduser;
+    @Column(name="iduser")
+    private Long iduser;
 
     @Column(name = "name")
     private String name;
@@ -43,6 +44,14 @@ public class User {
     private String token;
 
     public User() {}
+
+    public User(Long iduser, String firstName, String name, String pseudo, String token) {
+        this.iduser = iduser;
+        this.firstName = firstName;
+        this.name = name;
+        this.pseudo = pseudo;
+        this.token = token;
+    }
 
     public User(String name, String firstName, String pseudo, String password) {
         this.name = name;

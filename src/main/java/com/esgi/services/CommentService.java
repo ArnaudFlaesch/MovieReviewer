@@ -20,10 +20,6 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public List<CommentEntity> getCommentList(int idmovie) {
-        return commentRepository.getMovieComments(idmovie);
-    }
-
     public void addComment(CommentEntity comment) {
         commentRepository.save(comment);
     }
