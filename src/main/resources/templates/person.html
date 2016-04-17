@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="fr">
+    <meta charset="UTF-8"/>
+    <title>Films</title>
+    <!--<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />!-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <!--<script src="/webjars/jquery/2.2.3/jquery.min.js"></script>!-->
+</head>
+<body>
+<div id="header">
+    <div id="cssmenu">
+        <div id="menu-button">Menu</div>
+        <ul>
+            <li><a href="/" data-title="Accueil">Accueil</a></li>
+            <form action="#" th:text="person" th:action="@{/movies/search}" th:object="${personUtils}" method="post">
+                <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film"/>
+                <button class="btn_search">Rechercher</button>
+            </form>
+        </ul>
+    </div>
+</div>
+<h4 class="col-md-8" th:text="${test}"></h4>
+<div id="middle">
+    <div class="row movie" th:each="person :${listPersons}">
+        <h4 class="col-md-8" th:text="${person.name}"></h4> <img class="col-md-4" th:src="${person.picture}"/>
+        <hr/>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">Birthday</div>
+                <div class="col-md-8" th:text="${person.birthday}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">Bo</div>
+                <div class="col-md-8" th:text="${person.linkBo}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">Nationality</div>
+                <div class="col-md-8" th:text="${person.nationality}"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h5>Activité</h5>
+            <span class="casting" th:each="activity : ${person.roles}" th:text="${rols}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
