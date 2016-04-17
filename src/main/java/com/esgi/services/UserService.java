@@ -45,8 +45,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return userRepository.saveAndFlush(user);
+    public User updateUser(Long id, String password) {
+        User updateUser = userRepository.getOne(id);
+        updateUser.setPassword(password);
+        return userRepository.saveAndFlush(updateUser);
     }
 
     @Override

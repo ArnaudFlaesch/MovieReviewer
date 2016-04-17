@@ -31,7 +31,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    //@ResponseStatus(va)
     public String create(@RequestParam("name") String name,
                          @RequestParam("firstName") String firstname,
                          @RequestParam("pseudo") String pseudo,
@@ -59,7 +58,7 @@ public class UserController {
         _userService.removeById(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/authentificateUser", method = RequestMethod.POST)
     public String authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
         User authUser =  _userService.authenticateUser(pseudo, password);
         JSONObject json = new JSONObject();
@@ -67,9 +66,9 @@ public class UserController {
         return json.toString();
     }
 
-    @RequestMapping(value = "/updateInfoUser", method = RequestMethod.POST)
-    public User updateUser(@RequestParam("user") User user) {
-        return _userService.updateUser(user);
+    @RequestMapping(value = "/updatePasswordUser", method = RequestMethod.POST)
+    public User updateUser(@RequestParam("id") Long id, @RequestParam("password") String password) {
+        return _userService.updateUser(id,password);
     }
 
     @RequestMapping(value = "/getUserByPseudo", method = RequestMethod.GET)

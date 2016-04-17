@@ -19,7 +19,7 @@ public interface IUserService {
 
     User authenticateUser(String pseudo, String password);
 
-    User updateUser(User user);
+    public User updateUser(Long id, String password);
 
     User getUserByPseudo(String pseudo);
 
