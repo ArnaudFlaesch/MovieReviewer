@@ -60,7 +60,7 @@ public class MovieController {
      * @param model
      * @return
      */
-    @RequestMapping(value="/add", method = RequestMethod.GET)
+    @RequestMapping(value="/add", method = RequestMethod.POST)
     public String addMovieForm(Model model) {
         model.addAttribute("movie", new MovieEntity());
         return ("addMovie");
