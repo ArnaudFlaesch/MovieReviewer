@@ -25,9 +25,9 @@ public class UserAPIController {
         _userService = userService;
     }
 
-    @RequestMapping(value ="/")
-    public String UserUtils(){
-        return("userUtils");
+    @RequestMapping(value = "/")
+    public String UserUtils() {
+        return ("userUtils");
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -39,12 +39,12 @@ public class UserAPIController {
         // String i =_userService.RegisterUser(new User(name, firstname, pseudo, password));
         JSONObject json = new JSONObject();
         User createdUser = _userService.RegisterUser(new User(name, firstname, pseudo, password));
-        json.put("id",createdUser.getIduser());
-        json.put("name",createdUser.getName());
-        json.put("firstName",createdUser.getFirstName());
-        json.put("pseudo",createdUser.getPseudo());
-        json.put("dateInscription",createdUser.getDateInscription());
-        json.put("token",createdUser.getToken());
+        json.put("id", createdUser.getIduser());
+        json.put("name", createdUser.getName());
+        json.put("firstName", createdUser.getFirstName());
+        json.put("pseudo", createdUser.getPseudo());
+        json.put("dateInscription", createdUser.getDateInscription());
+        json.put("token", createdUser.getToken());
         return json.toString();
     }
 
@@ -60,20 +60,40 @@ public class UserAPIController {
 
     @RequestMapping(value = "/authentificateUser", method = RequestMethod.POST)
     public String authenticateUser(@RequestParam("pseudo") String pseudo, @RequestParam("password") String password) {
-        User authUser =  _userService.authenticateUser(pseudo, password);
+        User authUser = _userService.authenticateUser(pseudo, password);
+
         JSONObject json = new JSONObject();
-        json.put("token",authUser.getToken());
+        if (authUser.getToken() == null) {
+            json.put("token", -1);
+        } else {
+            json.put("token", authUser.getToken());
+        }
         return json.toString();
     }
 
     @RequestMapping(value = "/updatePasswordUser", method = RequestMethod.POST)
     public User updateUser(@RequestParam("id") Long id, @RequestParam("password") String password) {
-        return _userService.updateUser(id,password);
+        return _userService.updateUser(id, password);
     }
 
     @RequestMapping(value = "/getUserByPseudo", method = RequestMethod.GET)
-    public User getUserByPseudo(@RequestParam("pseudo") String pseudo) {
-        return _userService.getUserByPseudo(pseudo);
+    public String getUserByPseudo(@RequestParam("pseudo") String pseudo) {
+
+        User getUser = _userService.getUserByPseudo(pseudo);
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id", getUser.getIduser());
+            json.put("name", getUser.getName());
+            json.put("firstName", getUser.getFirstName());
+            json.put("pseudo", getUser.getPseudo());
+            json.put("dateInscription", getUser.getDateInscription());
+            json.put("token", getUser.getToken());
+        } catch (NullPointerException e) {
+            json.put("error", "User doesn't exist");
+
+        }
+        return json.toString();
+
     }
 
     @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
