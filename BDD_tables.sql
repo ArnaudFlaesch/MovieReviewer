@@ -75,7 +75,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `moviereviewer`.`person` (
   `idperson` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
+<<<<<<< HEAD
   `first_name` VARCHAR(45) NULL,
+=======
+  `picture` VARCHAR(255) NULL,
+  `linkbo` VARCHAR(255) NULL,
+  `nationnality` VARCHAR(255) NULL,
+>>>>>>> dev/person
   `birthday` DATE NULL,
   PRIMARY KEY (`idperson`))
 ENGINE = InnoDB;
