@@ -43,15 +43,15 @@ public class CommentEntity {
         this.idmovie = idmovie;
     }
 
-    private UserEntity user;
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "iduser")
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }
