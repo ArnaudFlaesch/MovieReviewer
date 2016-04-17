@@ -18,9 +18,9 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String RegisterUser(User user) {
+    public User RegisterUser(User user) {
         userRepository.save(user); //methode save automatiquement définie dans userRepo
-        return user.getToken();
+        return user;
     }
 
     public User getOne(Long id) {
@@ -35,9 +35,12 @@ public class UserService implements IUserService {
     @Override
     public User authenticateUser(String pseudo, String password) {
         User updateUser = userRepository.findByPseudoAndPassword(pseudo, password);
-        updateUser.setToken();
-        userRepository.save(updateUser);
-        return userRepository.findByPseudoAndPassword(pseudo, password);
+        if (updateUser != null) {
+            updateUser.setToken();
+            userRepository.save(updateUser);
+            return userRepository.findByPseudoAndPassword(pseudo, password);
+        }
+        return (new User());
     }
 
     @Override

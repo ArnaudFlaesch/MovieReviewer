@@ -18,12 +18,11 @@ import java.util.UUID;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor
 @Builder
-@NoArgsConstructor
 @Entity
 public class User {
     @GeneratedValue
     @Id
-    private long id;
+    private long iduser;
 
     @Column(name = "name")
     private String name;
@@ -43,6 +42,7 @@ public class User {
     @Column(name = "token")
     private String token;
 
+    public User() {}
 
     public User(String name, String firstName, String pseudo, String password) {
         this.name = name;
@@ -85,8 +85,8 @@ public class User {
         this.dateInscription = dateInscription;
     }
 
-    public long getId() {
-        return id;
+    public long getIduser() {
+        return iduser;
     }
 
 
