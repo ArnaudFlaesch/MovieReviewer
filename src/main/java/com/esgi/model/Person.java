@@ -29,6 +29,7 @@ public class Person {
     @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date birthday;
     private String picture;
+    @Column(name = "linkbo")
     private String linkBo;
     private String nationality;
 
