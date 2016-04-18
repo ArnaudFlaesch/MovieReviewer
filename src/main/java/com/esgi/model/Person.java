@@ -1,11 +1,13 @@
 package com.esgi.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Class Entity Person
@@ -16,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "person", schema = "moviereviewer")
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -24,12 +26,16 @@ public class Person {
     @Column(name = "idperson")
     private int id;
     private String name;
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date birthday;
     private String picture;
     private String linkBo;
     private String nationality;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idperson")
+    @OneToMany(fetch = FetchType.LAZY
+            ,mappedBy = "idperson"
+            //,cascade={CascadeType.PERSIST}
+    )
     private Set<Casting> roles = new HashSet<>();
 
     public Set<Casting> getRoles() {
@@ -37,8 +43,14 @@ public class Person {
     }
 
     public void setRoles(Set<Casting> roles) {
+        /*for (Casting role :
+                roles) {
+            role.setIdperson(this.id);
+            role.setIdmovie(UUID.randomUUID().toString()); // TODO : a modifier pour incorporer la relation movies.
+        }*/
         this.roles = roles;
     }
+
    /* @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons")
     private Set<MovieEntity> movies = new HashSet<MovieEntity>();
 

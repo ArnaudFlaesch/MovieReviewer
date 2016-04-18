@@ -4,9 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Class Entity Person
@@ -17,27 +14,21 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "casting", schema = "moviereviewer")
+@Table(name = "casting")
 public class Casting implements Serializable{
 
-    /*@Id
-    public CastingPk id;*/
     @Id
+    //@GeneratedValue(strategy=GenerationType.AUTO)
     private String idmovie;
     @Id
-    private String idperson;
+    /*@ManyToOne(targetEntity = Person.class)
+    @JoinColumn(name="idperson")*/
+    private int idperson;
     private String role;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idperson")
     private Person person;
 
-    /*public void setId(CastingPk id) {
-        this.id = id;
-    }
-
-    public void getId() {
-        return id;
-    }*/
 }
 
