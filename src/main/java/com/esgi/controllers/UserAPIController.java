@@ -38,7 +38,7 @@ public class UserAPIController {
 
 
         JSONObject json = new JSONObject();
-        User createdUser = _userService.RegisterUser(new User(name, firstname, pseudo, password));
+        User createdUser = _userService.registerUser(new User(name, firstname, pseudo, password));
         json.put("id", createdUser.getIduser());
         json.put("name", createdUser.getName());
         json.put("firstName", createdUser.getFirstName());

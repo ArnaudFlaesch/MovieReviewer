@@ -75,8 +75,19 @@ public class MovieController {
     @RequestMapping(method = RequestMethod.POST)
     public String addMovie(@ModelAttribute MovieEntity movie, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
+        List<MovieEntity> listMovies = movieService.getLastMovies();
+        for (MovieEntity film : listMovies) {
+            BigDecimal rating = new BigDecimal(0.0);
+            if (film.getListReviews().size() > 0) {
+                for (ReviewEntity review : film.getListReviews()) {
+                    rating = rating.add(review.getRating());
+                }
+                film.setNote(rating.divide(new BigDecimal(film.getListReviews().size())));
+            }
+        }
         movieService.addMovie(movie);
         model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
+        model.addAttribute("listMovies", listMovies);
         return("index");
     }
 

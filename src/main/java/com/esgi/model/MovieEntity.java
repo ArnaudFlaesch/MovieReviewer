@@ -20,6 +20,10 @@ public class MovieEntity {
     private String genre;
     private BigDecimal note;
 
+    public MovieEntity() {
+        this.dateRelease = new Date(1460990690);
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "idmovie")

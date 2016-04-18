@@ -66,7 +66,7 @@ public class UserController {
     @RequestMapping("/registerUser")
     public String register(@ModelAttribute User user, Model model) {
         model.addAttribute("movieUtils", new MovieUtils());
-        _userService.RegisterUser(new User(user.getName(), user.getFirstName(), user.getPseudo(), user.getPassword()));
+        _userService.registerUser(new User(user.getName(), user.getFirstName(), user.getPseudo(), user.getPassword()));
         User authenticateUser = _userService.authenticateUser(user.getPseudo(), user.getPassword());
         setSessionUser(authenticateUser);
         List<MovieEntity> listMovies = movieService.getLastMovies();

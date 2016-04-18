@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @IdClass(ReviewEntityPK.class)
-@Table(name = "review", schema = "moviereviewer")
+@Table(name = "reviews", schema = "moviereviewer")
 public class ReviewEntity {
 
     private Long idmovie;

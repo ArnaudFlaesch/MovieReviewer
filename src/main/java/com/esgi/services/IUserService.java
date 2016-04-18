@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface IUserService {
 
-    public User RegisterUser(User user);
+    public User registerUser(User user);
 
     public User getOne(Long id);
 

@@ -65,7 +65,7 @@
             <div>Commentaires : </div>
             <br /> <br />
             <div th:each="comment : ${movie.listComments}">
-                <span th:text="${comment.comment}"></span> par <span th:text="${comment.user.pseudo}"></span>
+                <span th:if="${comment.comment}" th:text="${comment.comment}"></span>
             </div>
             <br /> <br />
 
