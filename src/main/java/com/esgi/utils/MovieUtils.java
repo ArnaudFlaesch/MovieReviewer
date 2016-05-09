@@ -5,7 +5,7 @@ package com.esgi.utils;
  */
 public class MovieUtils {
 
-    private String research;
+    private String research = " ";
 
     public String getResearch() {
         return research;

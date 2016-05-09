@@ -1,9 +1,12 @@
 package com.esgi.controllers;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.io.Reader;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * Class BaseController
@@ -16,6 +19,8 @@ abstract class BaseController {
     protected String URL_GET_SEARCH;
     @Value("${moviereviewer.webservice.params.filter}")
     protected String URL_GET_FILTER;
+
+    protected static final Logger LOGGER = getLogger(BaseController.class);
 
     // Filters
     protected static final String FILTER_MOVIE = "movie";
