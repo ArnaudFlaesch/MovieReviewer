@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "movie", schema = "moviereviewer")
-public class MovieEntity {
+public class Movie {
     private Long idmovie;
     private String title;
     private String imageUrl;
@@ -20,7 +20,7 @@ public class MovieEntity {
     private String genre;
     private BigDecimal note;
 
-    public MovieEntity() {
+    public Movie() {
         this.dateRelease = new Date(1460990690);
     }
 
@@ -94,27 +94,27 @@ public class MovieEntity {
         this.note = note;
     }
 
-    private List<ReviewEntity> listReviews;
+    private List<Review> listReviews;
 
     @OneToMany
     @JoinColumn(name = "idmovie")
-    public List<ReviewEntity> getListReviews() {
+    public List<Review> getListReviews() {
         return listReviews;
     }
 
-    public void setListReviews(List<ReviewEntity> listReviews) {
+    public void setListReviews(List<Review> listReviews) {
         this.listReviews = listReviews;
     }
 
-    private List<CommentEntity> listComments;
+    private List<Comment> listComments;
 
     @OneToMany
     @JoinColumn(name = "idmovie")
-    public List<CommentEntity> getListComments() {
+    public List<Comment> getListComments() {
         return listComments;
     }
 
-    public void setListComments(List<CommentEntity> listComments) {
+    public void setListComments(List<Comment> listComments) {
         this.listComments = listComments;
     }
 }

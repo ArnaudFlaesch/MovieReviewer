@@ -1,10 +1,10 @@
 package com.esgi.controllers;
 
-import com.esgi.model.MovieEntity;
-import com.esgi.model.ReviewEntity;
+import com.esgi.model.Movie;
+import com.esgi.model.Review;
 import com.esgi.model.SessionUser;
 import com.esgi.model.User;
-import com.esgi.utils.MovieUtils;
+import com.esgi.utils.SearchUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,12 +24,12 @@ public class IndexController {
 
     @RequestMapping("/")
     public String getListMovies(@ModelAttribute User user, Model model) {
-        model.addAttribute("movieUtils", new MovieUtils());
-        List<MovieEntity> listMovies = movieService.getLastMovies();
-        for (MovieEntity movie : listMovies) {
+        model.addAttribute("searchUtils", new SearchUtils());
+        List<Movie> listMovies = movieService.getLastMovies();
+        for (Movie movie : listMovies) {
             BigDecimal rating = new BigDecimal(0.0);
             if (movie.getListReviews().size() > 0) {
-                for (ReviewEntity review : movie.getListReviews()) {
+                for (Review review : movie.getListReviews()) {
                     rating = rating.add(review.getRating());
                 }
                 movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));

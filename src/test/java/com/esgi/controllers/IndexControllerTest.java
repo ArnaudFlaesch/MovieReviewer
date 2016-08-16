@@ -1,6 +1,6 @@
 package com.esgi.controllers;
 
-import com.esgi.model.MovieEntity;
+import com.esgi.model.Movie;
 import com.esgi.repository.MovieRepository;
 import com.esgi.services.MovieService;
 import com.jayway.restassured.RestAssured;
@@ -32,8 +32,8 @@ public class IndexControllerTest {
         @Autowired
         MovieRepository movieRepository;
 
-        MovieEntity firstMovie;
-        MovieEntity secondMovie;
+        Movie firstMovie;
+        Movie secondMovie;
 
         @Value("${local.server.port}")
         int port;
@@ -41,12 +41,12 @@ public class IndexControllerTest {
         @Before
         public void setUp() {
 
-            firstMovie = new MovieEntity();
+            firstMovie = new Movie();
             firstMovie.setIdmovie(1L);
             firstMovie.setTitle("First");
             firstMovie.setDescription("First movie description");
 
-            secondMovie = new MovieEntity();
+            secondMovie = new Movie();
             secondMovie.setTitle("Second");
             secondMovie.setDescription("Second movie description");
 

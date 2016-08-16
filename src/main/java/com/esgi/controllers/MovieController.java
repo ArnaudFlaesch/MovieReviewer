@@ -1,7 +1,7 @@
 package com.esgi.controllers;
 
 import com.esgi.model.*;
-import com.esgi.utils.MovieUtils;
+import com.esgi.utils.SearchUtils;
 import com.esgi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,15 +29,15 @@ public class MovieController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String displayMovie(@ModelAttribute MovieEntity movie, Model model) {
-        model.addAttribute("movieUtils", new MovieUtils());
+    public String displayMovie(@ModelAttribute Movie movie, Model model) {
+        model.addAttribute("searchUtils", new SearchUtils());
         movie = movieService.getDetailMovie(movie.getIdmovie());
         model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
         BigDecimal rating = new BigDecimal(0.0);
         Long iduser = SessionUser.getIduser();
         boolean hasReviewed = false;
         if (movie.getListReviews().size() > 0) {
-            for (ReviewEntity review : movie.getListReviews()) {
+            for (Review review : movie.getListReviews()) {
                 rating = rating.add(review.getRating());
                 if (review.getIduser().equals(iduser)) {
                     hasReviewed = true;
@@ -47,8 +47,8 @@ public class MovieController {
         }
         model.addAttribute("hasReviewed", !hasReviewed);
         model.addAttribute("movie", movie);
-        model.addAttribute("comment", new CommentEntity());
-        model.addAttribute("review", new ReviewEntity());
+        model.addAttribute("comment", new Comment());
+        model.addAttribute("review", new Review());
         model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
         return("detailMovie");
     }
@@ -60,8 +60,8 @@ public class MovieController {
      */
     @RequestMapping(value="/add", method = RequestMethod.GET)
     public String addMovieForm(Model model) {
-        model.addAttribute("movie", new MovieEntity());
-        model.addAttribute("movieUtils", new MovieUtils());
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("searchUtils", new SearchUtils());
         model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
         return ("addMovie");
     }
@@ -73,14 +73,14 @@ public class MovieController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String addMovie(@ModelAttribute MovieEntity movie, Model model) {
+    public String addMovie(@ModelAttribute Movie movie, Model model) {
         movieService.addMovie(movie);
-        model.addAttribute("movieUtils", new MovieUtils());
-        List<MovieEntity> listMovies = movieService.getLastMovies();
-        for (MovieEntity film : listMovies) {
+        model.addAttribute("searchUtils", new SearchUtils());
+        List<Movie> listMovies = movieService.getLastMovies();
+        for (Movie film : listMovies) {
             BigDecimal rating = new BigDecimal(0.0);
             if (film.getListReviews() != null && film.getListReviews().size() > 0) {
-                for (ReviewEntity review : film.getListReviews()) {
+                for (Review review : film.getListReviews()) {
                     rating = rating.add(review.getRating());
                 }
                 film.setNote(rating.divide(new BigDecimal(film.getListReviews().size())));
@@ -93,16 +93,16 @@ public class MovieController {
 
     /**
      * Recherche les
-     * @param movieUtils
+     * @param searchUtils
      * @param model
      * @return
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String searchMoviesFromBDD(@ModelAttribute MovieUtils movieUtils, Model model) {
-        if (!movieUtils.getResearch().equals("")) {
-            List<MovieEntity> listMovies = movieService.searchMovies(movieUtils.getResearch());
+    public String searchMoviesFromBDD(@ModelAttribute SearchUtils searchUtils, Model model) {
+        if (!searchUtils.getResearch().equals("")) {
+            List<Movie> listMovies = movieService.searchMovies(searchUtils.getResearch());
             model.addAttribute("listMovies", listMovies);
-            model.addAttribute("movie", new MovieEntity());
+            model.addAttribute("movie", new Movie());
             model.addAttribute("user", new User(SessionUser.getIduser(), SessionUser.getFirstName(), SessionUser.getName(), SessionUser.getPseudo(), SessionUser.getToken()));
         }
         return ("movies");
@@ -110,13 +110,13 @@ public class MovieController {
 
     /*
     @RequestMapping(value = "/search/API", method = RequestMethod.POST)
-    public String searchMoviesFromApi(@ModelAttribute MovieUtils movieUtils, Model model) {
+    public String searchMoviesFromApi(@ModelAttribute SearchUtils searchUtils, Model model) {
         if (!movieUtils.getSearchContent().equals("")) {
             try {
                 InputStream is = new URL(apiAllocineUrl+movieUtils.getSearchContent()).openStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                 JsonObject body = Json.createReader(new StringReader(parseJsonFromReader(rd))).readObject();
-                ArrayList<MovieEntity> listMovies = parseJsonMovieList(body.getJsonObject("feed").getJsonArray("movie"));
+                ArrayList<Movie> listMovies = parseJsonMovieList(body.getJsonObject("feed").getJsonArray("movie"));
                 model.addAttribute("listMovies", listMovies);
             }
             catch (IOException error) {
@@ -136,11 +136,11 @@ public class MovieController {
     }
 
 
-    private ArrayList<MovieEntity> parseJsonMovieList(JsonArray listMovieFromApi) {
-        ArrayList<MovieEntity> listMovies = new ArrayList();
+    private ArrayList<Movie> parseJsonMovieList(JsonArray listMovieFromApi) {
+        ArrayList<Movie> listMovies = new ArrayList();
         for (int i = 0; i<listMovieFromApi.size(); i++) {
             JsonObject movieJson = listMovieFromApi.getJsonObject(i);
-            MovieEntity movie = new MovieEntity();
+            Movie movie = new Movie();
             movie.setTitle(movieJson.getString("originalTitle"));
             if (movieJson.get("poster") != null) {
                 movie.setImageUrl(((JsonObject)movieJson.get("poster")).getString("href"));

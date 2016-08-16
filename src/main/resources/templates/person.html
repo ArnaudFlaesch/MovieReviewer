@@ -16,7 +16,7 @@
         <div id="menu-button">Menu</div>
         <ul>
             <li><a href="/" data-title="Accueil">Accueil</a></li>
-            <form action="#" th:text="person" th:action="@{/person/search}" th:object="${personUtils}" method="post">
+            <form action="#" th:text="person" th:action="@{/person/search}" th:object="${searchUtils}" method="post">
                 <input type="text" class="search_input" th:field="*{research}" placeholder="Nom d'une personne"/>
                 <button class="btn_search">Rechercher</button>
             </form>

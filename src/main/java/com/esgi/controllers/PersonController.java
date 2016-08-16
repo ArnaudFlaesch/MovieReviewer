@@ -3,7 +3,7 @@ package com.esgi.controllers;
 import com.esgi.model.Casting;
 import com.esgi.model.Person;
 import com.esgi.services.PersonService;
-import com.esgi.utils.PersonUtils;
+import com.esgi.utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,10 +52,10 @@ public class PersonController extends BaseController {
      * @return Person
      */
     @RequestMapping(value = "/{namePerson:[A-z]*}", method = GET)
-    public String retrieveByName(@ModelAttribute PersonUtils personUtils, Model model, @PathVariable("namePerson") String namePerson) {
+    public String retrieveByName(@ModelAttribute SearchUtils searchUtils, Model model, @PathVariable("namePerson") String namePerson) {
         String queryValue = "";
-        if (!personUtils.getResearch().equals("")) {
-            queryValue = personUtils.getResearch();
+        if (!searchUtils.getResearch().equals("")) {
+            queryValue = searchUtils.getResearch();
         } else if (!namePerson.equals("")) {
             queryValue = namePerson;
         }

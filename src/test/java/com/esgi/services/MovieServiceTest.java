@@ -1,6 +1,6 @@
 package com.esgi.services;
 
-import com.esgi.model.MovieEntity;
+import com.esgi.model.Movie;
 import com.esgi.repository.MovieRepository;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,8 +17,6 @@ public class MovieServiceTest {
     @InjectMocks
     private MovieService movieService;
 
-    private MovieEntity movie = new MovieEntity();
-
     @Mock
     private MovieRepository movieRepository;
 
@@ -30,6 +28,7 @@ public class MovieServiceTest {
 
     @Test
     public void should_modify_genre() {
+        Movie movie = new Movie();
         movie = movieService.getDetailMovie(new Long(1));
         movie.setGenre("Nouveau genre");
         movieRepository.save(movie);

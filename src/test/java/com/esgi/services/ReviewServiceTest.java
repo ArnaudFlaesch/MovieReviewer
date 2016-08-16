@@ -1,11 +1,8 @@
 package com.esgi.services;
 
-import com.esgi.model.MovieEntity;
-import com.esgi.model.ReviewEntity;
-import com.esgi.repository.MovieRepository;
+import com.esgi.model.Review;
 import com.esgi.repository.ReviewRepository;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,7 +22,7 @@ public class ReviewServiceTest {
     @Mock
     private ReviewRepository reviewRepository;
 
-    private ReviewEntity review = new ReviewEntity();
+    private Review review = new Review();
 
     @Test
     public void should_modify_rating() {

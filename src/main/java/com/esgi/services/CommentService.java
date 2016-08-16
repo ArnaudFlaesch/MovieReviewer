@@ -1,11 +1,9 @@
 package com.esgi.services;
 
-import com.esgi.model.CommentEntity;
+import com.esgi.model.Comment;
 import com.esgi.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by Arnaud on 15/04/2016.
@@ -20,15 +18,15 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public void addComment(CommentEntity comment) {
+    public void addComment(Comment comment) {
         commentRepository.save(comment);
     }
 
-    public void updateComment(CommentEntity comment) {
+    public void updateComment(Comment comment) {
         commentRepository.save(comment);
     }
 
-    public void deleteComment(CommentEntity comment) {
+    public void deleteComment(Comment comment) {
         commentRepository.delete(comment);
     }
 

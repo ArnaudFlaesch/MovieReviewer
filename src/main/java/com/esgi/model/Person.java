@@ -91,13 +91,13 @@ public class Person {
     }
 
    /* @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons")
-    private Set<MovieEntity> movies = new HashSet<MovieEntity>();
+    private Set<Movie> movies = new HashSet<Movie>();
 
-    public Set<MovieEntity> getMovies() {
+    public Set<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Set<MovieEntity> movies) {
+    public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }*/
 }

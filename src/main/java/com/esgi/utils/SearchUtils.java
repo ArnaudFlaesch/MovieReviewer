@@ -3,7 +3,7 @@ package com.esgi.utils;
 /**
  * Created by Arnaud on 10/04/2016.
  */
-public class MovieUtils {
+public class SearchUtils {
 
     private String research = " ";
 

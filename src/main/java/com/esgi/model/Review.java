@@ -7,9 +7,9 @@ import java.math.BigDecimal;
  * Created by Arnaud Flaesch on 13/04/2016.
  */
 @Entity
-@IdClass(ReviewEntityPK.class)
+@IdClass(ReviewPK.class)
 @Table(name = "reviews", schema = "moviereviewer")
-public class ReviewEntity {
+public class Review {
 
     private Long idmovie;
     private BigDecimal rating;

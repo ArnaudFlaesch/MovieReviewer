@@ -1,6 +1,6 @@
 package com.esgi.services;
 
-import com.esgi.model.MovieEntity;
+import com.esgi.model.Movie;
 import com.esgi.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,22 +22,22 @@ public class MovieService {
     }
 
     @Transactional
-    public void addMovie(MovieEntity movie) {
+    public void addMovie(Movie movie) {
         movieRepository.save(movie);
     }
 
     @Transactional
-    public MovieEntity getDetailMovie(Long id) {
+    public Movie getDetailMovie(Long id) {
         return (movieRepository.getOne(id));
     }
 
     @Transactional
-    public List<MovieEntity> getLastMovies() {
+    public List<Movie> getLastMovies() {
         return(movieRepository.getLastMovies());
     }
 
     @Transactional
-    public List<MovieEntity> searchMovies(String titleSearch) {
+    public List<Movie> searchMovies(String titleSearch) {
         return(movieRepository.findMovies(titleSearch));
     }
 

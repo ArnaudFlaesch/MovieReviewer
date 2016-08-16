@@ -1,16 +1,12 @@
 package com.esgi.controllers;
 
-import com.esgi.model.MovieEntity;
-import com.esgi.model.ReviewEntity;
-import com.esgi.repository.MovieRepository;
+import com.esgi.model.Review;
 import com.esgi.repository.ReviewRepository;
-import com.esgi.services.MovieService;
 import com.jayway.restassured.RestAssured;
 import com.sun.glass.ui.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
@@ -30,8 +26,8 @@ public class ReviewControllerTest {
     @Autowired
     ReviewRepository reviewRepository;
 
-    ReviewEntity firstReview;
-    ReviewEntity secondReview;
+    Review firstReview;
+    Review secondReview;
 
     @Value("${local.server.port}")
     int port;
@@ -39,9 +35,9 @@ public class ReviewControllerTest {
     @Before
     public void setUp() {
 
-        firstReview = new ReviewEntity();
+        firstReview = new Review();
 
-        secondReview = new ReviewEntity();
+        secondReview = new Review();
 
 
         reviewRepository.saveAndFlush(firstReview);

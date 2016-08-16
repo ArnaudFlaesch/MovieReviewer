@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "comment", schema = "moviereviewer")
-public class CommentEntity {
+public class Comment {
     private Long idcomment;
     private String comment;
     private Long idmovie;

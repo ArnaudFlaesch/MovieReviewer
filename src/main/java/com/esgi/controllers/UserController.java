@@ -1,12 +1,12 @@
 package com.esgi.controllers;
 
-import com.esgi.model.MovieEntity;
-import com.esgi.model.ReviewEntity;
+import com.esgi.model.Movie;
+import com.esgi.model.Review;
 import com.esgi.model.SessionUser;
 import com.esgi.model.User;
 import com.esgi.services.MovieService;
 import com.esgi.services.UserService;
-import com.esgi.utils.MovieUtils;
+import com.esgi.utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,11 +39,11 @@ public class UserController {
         if (user != null) {
             setSessionUser(user);
         }
-        List<MovieEntity> listMovies = movieService.getLastMovies();
-        for (MovieEntity movie : listMovies) {
+        List<Movie> listMovies = movieService.getLastMovies();
+        for (Movie movie : listMovies) {
             BigDecimal rating = new BigDecimal(0.0);
             if (movie.getListReviews().size() > 0) {
-                for (ReviewEntity review : movie.getListReviews()) {
+                for (Review review : movie.getListReviews()) {
                     rating = rating.add(review.getRating());
                 }
                 movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));
@@ -52,28 +52,28 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("listMovies", listMovies);
-        model.addAttribute("movieUtils", new MovieUtils());
+        model.addAttribute("searchUtils", new SearchUtils());
         return ("index");
     }
 
     @RequestMapping("/register")
     public String registerView(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("movieUtils", new MovieUtils());
+        model.addAttribute("searchUtils", new SearchUtils());
         return("register");
     }
 
     @RequestMapping("/registerUser")
     public String register(@ModelAttribute User user, Model model) {
-        model.addAttribute("movieUtils", new MovieUtils());
+        model.addAttribute("searchUtils", new SearchUtils());
         _userService.registerUser(new User(user.getName(), user.getFirstName(), user.getPseudo(), user.getPassword()));
         User authenticateUser = _userService.authenticateUser(user.getPseudo(), user.getPassword());
         setSessionUser(authenticateUser);
-        List<MovieEntity> listMovies = movieService.getLastMovies();
-        for (MovieEntity movie : listMovies) {
+        List<Movie> listMovies = movieService.getLastMovies();
+        for (Movie movie : listMovies) {
             BigDecimal rating = new BigDecimal(0.0);
             if (movie.getListReviews().size() > 0) {
-                for (ReviewEntity review : movie.getListReviews()) {
+                for (Review review : movie.getListReviews()) {
                     rating = rating.add(review.getRating());
                 }
                 movie.setNote(rating.divide(new BigDecimal(movie.getListReviews().size())));

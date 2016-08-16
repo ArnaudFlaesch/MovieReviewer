@@ -1,9 +1,7 @@
 package com.esgi.controllers;
 
-import com.esgi.model.CommentEntity;
-import com.esgi.model.MovieEntity;
+import com.esgi.model.Comment;
 import com.esgi.repository.CommentRepository;
-import com.esgi.repository.MovieRepository;
 import com.jayway.restassured.RestAssured;
 import com.sun.glass.ui.Application;
 import org.junit.Before;
@@ -15,10 +13,6 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import static com.jayway.restassured.RestAssured.given;
 
@@ -36,8 +30,8 @@ public class CommentControllerTest {
         @Autowired
         CommentRepository commentRepository;
 
-        CommentEntity firstComment;
-        CommentEntity secondComment;
+        Comment firstComment;
+        Comment secondComment;
 
         @Value("${local.server.port}")
         int port;
@@ -45,10 +39,10 @@ public class CommentControllerTest {
         @Before
         public void setUp() {
 
-            firstComment = new CommentEntity();
+            firstComment = new Comment();
             firstComment.setComment("First comment");
 
-            secondComment = new CommentEntity();
+            secondComment = new Comment();
             secondComment.setComment("Second comment");
 
             commentRepository.saveAndFlush(firstComment);

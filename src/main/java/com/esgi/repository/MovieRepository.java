@@ -1,6 +1,6 @@
 package com.esgi.repository;
 
-import com.esgi.model.MovieEntity;
+import com.esgi.model.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,11 +13,11 @@ import java.util.List;
  */
 
 @Repository
-public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("FROM MovieEntity WHERE title LIKE %:title%")
-    List<MovieEntity> findMovies(@Param("title") String title);
+    @Query("FROM Movie WHERE title LIKE %:title%")
+    List<Movie> findMovies(@Param("title") String title);
 
-    @Query("FROM MovieEntity WHERE date_release <= date(now()) ORDER BY date_release DESC")
-    List<MovieEntity> getLastMovies();
+    @Query("FROM Movie WHERE date_release <= date(now()) ORDER BY date_release DESC")
+    List<Movie> getLastMovies();
 }

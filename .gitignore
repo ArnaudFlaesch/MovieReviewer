@@ -1,5 +1,8 @@
 .idea/
 target/
+.mvn/
+mvnw
+mvnw.cmd
 MovieReviewer.iml
 BDD_Schema.mwb.bak
 moviereviewer.iml

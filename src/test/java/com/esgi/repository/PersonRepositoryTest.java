@@ -23,8 +23,6 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class PersonRepositoryTest {
     @Autowired
     PersonRepository personRepository;
-    @Autowired
-    EntityManager entityManager;
 
     @Test
     public void should_find_all_persons() {

@@ -13,7 +13,7 @@
             <div id="menu-button">Menu</div>
             <ul>
                 <li class="active"><a href="/" data-title="Accueil">Accueil</a></li>
-                <form action="#" th:action="@{/movies/search}" th:object="${movieUtils}" method="post">
+                <form action="#" th:action="@{/movies/search}" th:object="${searchUtils}" method="post">
                     <input type="text" class="search_input" th:field="*{research}" placeholder="Titre du film" />
                     <button class="btn_search">Rechercher</button>
                 </form>

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by Arnaud Flaesch on 15/04/2016.
  */
-public class ReviewEntityPK implements Serializable {
+public class ReviewPK implements Serializable {
 
     private Long idmovie;
     private Long iduser;
